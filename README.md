@@ -95,3 +95,52 @@ function App() {
 ```
 
 Just like that, our project is configured for serverless functionality. All that's left to do is utilize the functions provided by the useEasybase hook, which we'll do in the next section.
+
+
+Sync will automatically handle the backend processes necessary. More importantly, it will re-render our component with the fresh data in Frame.
+
+If we rebuild our application, the new notes displayed will be the same ones present in our data table. Congrats, you're using a serverless database!
+
+Let's have some more fun by adding a button that will push a new note to Easybase and render your application accordingly.
+
+Create a new component called NewNoteButton. Get the sync and Frame functions from the useEasybase hook.
+
+I'm going to place this button in the top-left of the window using absolute positioning. When a user clicks this button, my component will get a new title and description from the user and post it to Easybase using Frame and sync.
+
+Put this newly created component below the Notes component within the EasybaseProvider.
+
+- Put this newly created component below the Notes component within the EasybaseProvider.
+
+```javascript
+function App() {
+  return (
+    <div className="App" style={{ display: "flex", justifyContent: "center" }}>
+      <EasybaseProvider ebconfig={ebconfig}>
+        <Notes />
+        <NewNoteButton />
+      </EasybaseProvider>
+    </div>
+  );
+}
+
+// ...
+
+function NewNoteButton() {
+  const { Frame, sync } = useEasybase();
+  
+  const handleClick = () => {
+    const newTitle = prompt("Please enter a title for your note");
+    const newDescription = prompt("Please enter your description");
+    
+    Frame().push({
+      title: newTitle,
+      description: newDescription,
+      createdat: new Date().toISOString()
+    })
+    
+    sync();
+  }
+
+  return <button onClick={handleClick}>📓 Add Note 📓</button>
+}
+```
