@@ -144,3 +144,8 @@ function NewNoteButton() {
   return <button onClick={handleClick}>📓 Add Note 📓</button>
 }
 ```
+These changes will be instantly visible in your Easybase table, so feel free to make changes there as well!
+
+here check easybase out! --> https://app.easybase.io/ - automatic!
+                             [Easybase](https://app.easybase.io/
+                             
